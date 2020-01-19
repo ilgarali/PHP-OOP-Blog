@@ -31,7 +31,7 @@ class Fetch{
                 window.location.href = "index.php";
             }, 2222);
         }})
-        .catch((error) => console.log(error) )
+        .catch((error) => console.log(error) );
         
     }
 }

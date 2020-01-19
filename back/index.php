@@ -36,6 +36,7 @@
                     <?php 
                     $sql = new Model();
                     $conditions = [
+                      "select"=>"*,posts.id as postid",
                       "leftjoin" => "category",
                       "from" => "category_id",
                       "to" => "id",
@@ -48,7 +49,7 @@
                     
                     ?>
 
-                  <tr role="row" class="odd">
+                  <tr role="row" id="<?php echo $data['postid'] ?>" class="odd">
 
                       <td class="sorting_1"> <img src="img/<?php echo $data['img'] ?>" class="img-fluid" height="100" width="200" alt="">  </td>
                       <td><?php echo substr($data['text'],0,200) ?></td>
@@ -56,8 +57,8 @@
                       
                       <td> <?php echo $data['category'] ?>  </td>
                       <td>
-                        <button class="btn btn-info">Edit</button>
-                      <button class="btn btn-warning">Delete</button>
+                      <button class="btn btn-info my-2"><a href="edit.php?edit=<?php echo $data['postid'] ?>">Edit</a></button>
+                      <button class="btn btn-warning delete" value="<?php echo $data['postid'] ?>" >Delete</button>
  </td>
 
                     </tr>
@@ -73,4 +74,25 @@
 
       </div>
       <!-- End of Main Content -->
+   <script>
+     
+   let deletepost = document.querySelectorAll('.delete');
+   for (let i = 0; i < deletepost.length; i++) {
+     deletepost[i].addEventListener("click",(e) => {
+       e.preventDefault();
+       let getid = deletepost[i].value;
+       const deletephp = "delete.php";
+       let myob = {
+         "id":getid
+       }
+       let message = "You Have deleted post successfully";
+       let fetch = new Fetch;
+       fetch.setFetch(myob,deletephp,message);
+       
+
+     })
+     
+   }
+   </script>
+
 <?php include_once "includes/footer.php" ?>
