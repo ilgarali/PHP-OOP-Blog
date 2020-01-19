@@ -76,6 +76,7 @@ class Controller extends DB{
         // if everything is fine that sends true response to fetch 
         $res = ["res" => true];
         echo json_encode($res);
+        
         return $result;
 
     }

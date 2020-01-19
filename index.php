@@ -9,24 +9,41 @@ include_once "includes/header.php";
 <div class="col-full">
 
     <div class="featured-slider featured" data-aos="zoom-in">
+        <?php
+        $slide = new Model();
+        $coditions =[
+            "select"=>"*,posts.id as postid",
+            "leftjoin" =>"category",
+            "from"=>"category_id",
+            "to"=>"id",
+            "orderby"=>"id",
+            "orderedtype"=>"DESC",
+                     
+                    ];
+           $where = ["status" => 2];         
+        $data = $slide->getData("posts",$coditions,$where); 
+        foreach ($data as $data) {
+            # code...
+        
+        ?>
 
         <div class="featured__slide">
             <div class="entry">
 
-                <div class="entry__background" style="background-image:url('images/thumbs/featured/featured-guitarman.jpg');"></div>
+                <div class="entry__background" style="background-image:url(back/img/<?php echo $data['img'] ?>);"></div>
                 
                 <div class="entry__content">
-                    <span class="entry__category"><a href="#0">Music</a></span>
+                    <span class="entry__category"><a href="#0"> <?php echo $data['category'] ?> </a></span>
    
-                    <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
+                    <h1><a href="single.php?single=<?php echo $data['postid'] ?>" title=""><?php echo $data['title'] ?></a></h1>
 
                     <div class="entry__info">
                         <a href="#0" class="entry__profile-pic">
-                            <img class="avatar" src="images/avatars/user-05.jpg" alt="">
+                        <img src="back/img/<?php echo $data['img'] ?>" alt="">
                         </a>
                         <ul class="entry__meta">
-                            <li><a href="#0">Jonathan Smith</a></li>
-                            <li>June 02, 2018</li>
+                            <li><a href="#0">Admin</a></li>
+                            <li><?php echo $data['created_at'] ?> </li>
                         </ul>
                     </div>
                 </div> <!-- end entry__content -->
@@ -34,59 +51,8 @@ include_once "includes/header.php";
             </div> <!-- end entry -->
         </div> <!-- end featured__slide -->
 
-        <div class="featured__slide">
-
-            <div class="entry">
-
-                <div class="entry__background" style="background-image:url('images/thumbs/featured/featured-watch.jpg');"></div>
-                
-                <div class="entry__content">
-                    <span class="entry__category"><a href="#0">Management</a></span>
-
-                    <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
-
-                    <div class="entry__info">
-                        <a href="#0" class="entry__profile-pic">
-                            <img class="avatar" src="images/avatars/user-03.jpg" alt="">
-                        </a>
-
-                        <ul class="entry__meta">
-                            <li><a href="#0">John Doe</a></li>
-                            <li>June 13, 2018</li>
-                        </ul>
-                    </div>
-                </div> <!-- end entry__content -->
-                
-            </div> <!-- end entry -->
-
-        </div> <!-- end featured__slide -->
-
-        <div class="featured__slide">
-
-            <div class="entry">
-
-                <div class="entry__background" style="background-image:url('images/thumbs/featured/featured-beetle.jpg');"></div>
-
-                <div class="entry__content">
-                    <span class="entry__category"><a href="#0">LifeStyle</a></span>
-
-                    <h1><a href="#0" title="">The difference between Classics, Vintage & Antique Cars.</a></h1>
-
-                    <div class="entry__info">
-                        <a href="#0" class="entry__profile-pic">
-                            <img class="avatar" src="images/avatars/user-03.jpg" alt="">
-                        </a>
-
-                        <ul class="entry__meta">
-                            <li><a href="#0">John Doe</a></li>
-                            <li>June 12, 2018</li>
-                        </ul>
-                    </div>
-                </div> <!-- end entry__content -->
-
-            </div> <!-- end entry -->
-
-        </div> <!-- end featured__slide -->
+    <?php  } ?>
+        
         
     </div> <!-- end featured -->
 
@@ -111,7 +77,7 @@ include_once "includes/header.php";
     $totalpage ="";
     $getdata = new Model;
     $sql = [
-        
+    "select"=>"*,posts.id as postid",   
     "leftjoin" =>"category",
     "from"=>"category_id",
     "to"=>"id",
@@ -135,7 +101,7 @@ include_once "includes/header.php";
         
         <div class="item-entry" data-aos="zoom-in">
             <div class="item-entry__thumb">
-                <a href="single-standard.php" class="item-entry__thumb-link">
+                <a href="single.php?single=<?php echo $data['postid'] ?>" class="item-entry__thumb-link">
                     <img src="back/img/<?php echo $data['img'] ?>" 
                            alt="">
                 </a>
@@ -146,10 +112,10 @@ include_once "includes/header.php";
                     <a href="category.html"><?php echo $data['category'] ?></a> 
                 </div>
 
-                <h1 class="item-entry__title"><a href="single-standard.html"> <?php echo $data['title'] ?> </a></h1>
+                <h1 class="item-entry__title"><a href="single.php?single=<?php echo $data['postid'] ?>"> <?php echo $data['title'] ?> </a></h1>
                     
                 <div class="item-entry__date">
-                    <a href="single-standard.html"><?php echo $data['created_at'] ?></a>
+                    <a href="single.php?single=<?php echo $data['postid'] ?>"><?php echo $data['created_at'] ?></a>
                 </div>
             </div>
         </div> <!-- item-entry -->

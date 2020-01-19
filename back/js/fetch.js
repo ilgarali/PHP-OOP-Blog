@@ -29,7 +29,7 @@ class Fetch{
             toastr.success(this.message);
             setTimeout(() => {
                 window.location.href = "index.php";
-            }, 2222);
+            }, 3456);
         }})
         .catch((error) => console.log(error) );
         

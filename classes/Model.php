@@ -52,6 +52,7 @@ class Model extends DB
             
           }
           else{
+            
             $stmt =$this->db->prepare($sql);
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
