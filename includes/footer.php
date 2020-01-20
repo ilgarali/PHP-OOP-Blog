@@ -10,66 +10,32 @@
     <h3>Popular Posts</h3>
 
     <div class="block-1-2 block-m-full popular__posts">
+        <?php 
+        $condition = [
+            "orderby"=>"hits",
+            "orderedtype"=>"DESC",
+            "limit"=>6
+        ];
+        $sql = new Model;
+        $data = $sql->getData("posts",$condition);
+        foreach ($data as $data) {
+            # code...
+        
+        ?>
         <article class="col-block popular__post">
             <a href="#0" class="popular__thumb">
-                <img src="images/thumbs/small/tulips-150.jpg" alt="">
+                <img src="back/img/<?php echo $data['img'] ?>" alt="">
             </a>
-            <h5>10 Interesting Facts About Caffeine.</h5>
+            <h5><?php echo $data['title'] ?></h5>
             <section class="popular__meta">
-                <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
-                <span class="popular__date"><span>on</span> <time datetime="2018-06-14">Jun 14, 2018</time></span>
+                <span class="popular__author"><span>By</span> <a href="#0">Admin</a></span>
+                <span class="popular__date"><span>on</span> <time datetime="2018-06-14"><?php echo $data['created_at'] ?></time></span>
             </section>
         </article>
-        <article class="col-block popular__post">
-            <a href="#0" class="popular__thumb">
-                <img src="images/thumbs/small/wheel-150.jpg" alt="">
-            </a>
-            <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
-            <section class="popular__meta">
-                <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
-                <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
-            </section>
-        </article>
-        <article class="col-block popular__post">
-            <a href="#0" class="popular__thumb">
-                <img src="images/thumbs/small/shutterbug-150.jpg" alt="">
-            </a>
-            <h5><a href="#0">Key Benefits Of Family Photography.</a></h5>
-            <section class="popular__meta">
-                <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
-                <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
-            </section>
-        </article>
-        <article class="col-block popular__post">
-            <a href="#0" class="popular__thumb">
-                <img src="images/thumbs/small/cookies-150.jpg" alt="">
-            </a>
-            <h5><a href="#0">Absolutely No Sugar Oatmeal Cookies.</a></h5>
-            <section class="popular__meta">
-                <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
-            </section>
-        </article>
-        <article class="col-block popular__post">
-            <a href="#0" class="popular__thumb">
-                <img src="images/thumbs/small/beetle-150.jpg" alt="">
-            </a>
-            <h5><a href="#0">Throwback To The Good Old Days.</a></h5>
-            <section class="popular__meta">
-                <span class="popular__author"><span>By</span> <a href="#0">John Doe</a></span>
-                <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
-            </section>
-        </article>
-        <article class="col-block popular__post">
-            <a href="#0" class="popular__thumb">
-                <img src="images/thumbs/small/salad-150.jpg" alt="">
-            </a>
-            <h5>Healthy Mediterranean Salad Recipes</h5>
-            <section class="popular__meta">
-                <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                <span class="popular__date"><span>on</span> <time datetime="2018-06-12">Jun 12, 2018</time></span>
-            </section>
-        </article>
+       <?php } ?>
+     
+      
+        
     </div> <!-- end popular_posts -->
 </div> <!-- end popular -->
 
@@ -79,12 +45,18 @@
             <h3>Categories</h3>
 
             <ul class="linklist">
-                <li><a href="#0">Lifestyle</a></li>
-                <li><a href="#0">Travel</a></li>
-                <li><a href="#0">Recipes</a></li>
-                <li><a href="#0">Management</a></li>
-                <li><a href="#0">Health</a></li>
-                <li><a href="#0">Creativity</a></li>
+            <?php 
+            
+                           
+             $sql = new Model;
+             $data = $sql->getData("category");
+             
+             foreach ($data as $data) {
+                 # code...
+                           
+            ?>
+                <li><a href="category.php?catgeory=<?php echo $data['id'] ?>"><?php echo $data['category'] ?></a></li>
+            <?php } ?>
             </ul>
         </div> <!-- end categories -->
 
@@ -92,12 +64,12 @@
             <h3>Site Links</h3>
 
             <ul class="linklist">
-                <li><a href="#0">Home</a></li>
-                <li><a href="#0">Blog</a></li>
-                <li><a href="#0">Styles</a></li>
-                <li><a href="#0">About</a></li>
-                <li><a href="#0">Contact</a></li>
-                <li><a href="#0">Privacy Policy</a></li>
+                <li><a href="index.php">Home</a></li>
+                
+               
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="privacy.php">Privacy Policy</a></li>
             </ul>
         </div> <!-- end sitelinks -->
     </div>

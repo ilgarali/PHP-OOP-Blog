@@ -26,10 +26,16 @@ class Model extends DB
               
           }
     
-       
-          if (array_key_exists("starting_limit",$conditions) && array_key_exists("limit",$conditions)) {
-            $sql.=" LIMIT " . $conditions['limit'];
-        }
+          if (!array_key_exists("page",$conditions)) {
+            $stmt =$this->db->prepare($sql);
+            $stmt->execute();
+            $data2= $stmt->rowCount();
+            if (array_key_exists("limit",$conditions)) {
+              $sql.=" LIMIT " . $conditions['limit'];
+          }
+            
+          }
+    
           if (array_key_exists("page",$conditions)) {
             $stmt =$this->db->prepare($sql);
             $stmt->execute();
@@ -65,4 +71,3 @@ class Model extends DB
  
 
 }
-

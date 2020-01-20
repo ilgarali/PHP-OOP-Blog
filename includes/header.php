@@ -83,8 +83,17 @@ function my_autoloader($class){
             <ul class="header__nav">
                 <li class="current"><a href="index.php" title="">Home</a></li>
                 <li class="has-children">
-                    <a href="#0" title="">Categories</a>
+                    <a href="" title="">Categories</a>
                     <ul class="sub-menu">
+                        <?php 
+                        $sql = new Model;
+                        $conditions = [
+                            "leftjoin" =>"posts",
+                            "from"=>"id",
+                            "to"=>"category"
+                        ];
+                        $sql->getData("category");
+                        ?>
                         <li><a href="category.php">Lifestyle</a></li>
                         <li><a href="category.php">Health</a></li>
                         <li><a href="category.php">Family</a></li>
@@ -93,17 +102,10 @@ function my_autoloader($class){
                         <li><a href="category.php">Work</a></li>
                     </ul>
                 </li>
-                <li class="has-children">
-                    <a href="#0" title="">Blog</a>
-                    <ul class="sub-menu">
-                        <li><a href="single-video.php">Video Post</a></li>
-                        <li><a href="single-audio.php">Audio Post</a></li>
-                        <li><a href="single-standard.php">Standard Post</a></li>
-                    </ul>
-                </li>
-                <li><a href="style-guide.php" title="">Styles</a></li>
-                <li><a href="page-about.php" title="">About</a></li>
-                <li><a href="page-contact.php" title="">Contact</a></li>
+               
+               
+                <li><a href="about.php" title="">About</a></li>
+                <li><a href="contact.php" title="">Contact</a></li>
             </ul> <!-- end header__nav -->
 
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
