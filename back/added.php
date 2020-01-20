@@ -45,7 +45,9 @@ if ($_POST['title'] && $_POST['category'] && $_POST['text'])
                         "img"=>$img,
                         "tags"=>$tags,
                         "text"=>$text,
-                        "status"=>$status];
+                        "status"=>$status,
+                        "hits"=>0
+                    ];
                     $insert->insert("posts",$data);
 
 

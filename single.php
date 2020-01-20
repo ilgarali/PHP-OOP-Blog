@@ -124,16 +124,42 @@ include_once "includes/header.php";
     <div class="s-content__entry-nav">
         <div class="row s-content__nav">
             <div class="col-six s-content__prev">
-                <a href="#0" rel="prev">
+                <?php 
+                $cond = [
+                    "limit"=>1
+                ];
+                $sql3 = new Model();
+
+                $data = $sql3->getData("posts",$cond,["id" =>$where-1]);
+               foreach ($data as $data) {
+                   # code...
+               
+                ?>
+                <a href="single.php?single=<?php echo $data['id'] ?>" rel="prev">
                     <span>Previous Post</span>
-                    The Pomodoro Technique Really Works.
+                    <?php echo $data['title'] ?>
                 </a>
+
+            <?php }?>
             </div>
             <div class="col-six s-content__next">
-                <a href="#0" rel="next">
+
+            <?php 
+                $cond = [
+                    "limit"=>1
+                ];
+                $sql3 = new Model();
+
+                $data = $sql3->getData("posts",$cond,["id" =>$where+1]);
+               foreach ($data as $data) {
+                   # code...
+               
+                ?>
+                <a href="single.php?single=<?php echo $data['id'] ?>" rel="next">
                     <span>Next Post</span>
-                    3 Benefits of Minimalism In Interior Design.
+                    <?php echo $data['title'] ?>
                 </a>
+                <?php }?>
             </div>
         </div>
     </div> <!-- end s-content__pagenav -->
@@ -142,7 +168,15 @@ include_once "includes/header.php";
 
         <div id="comments" class="row">
             <div class="col-full">
+            <?php 
+                $cond = [
+                    "count"=>"s"
+                ];
+                $sql3 = new Model();
+                
 
+                $data = $sql3->getData("comments",$cond,["post_id" =>$where]);
+                ?>
                 <h3 class="h2">5 Comments</h3>
 
                 <!-- START commentlist -->
@@ -150,28 +184,37 @@ include_once "includes/header.php";
 
                     <li class="depth-1 comment">
 
-                        <div class="comment__avatar">
-                            <img class="avatar" src="images/avatars/user-01.jpg" alt="" width="50" height="50">
-                        </div>
+                      
+                    <?php 
+                $cond = [
+                    "orderby"=>"id",
+                    "orderedtype"=>"DESC"
+                ];
+                $sql3 = new Model();
+                
 
+                $data = $sql3->getData("comments",$cond,["post_id" =>$where,"status"=>1]);
+                
+                foreach ($data as $data) {
+                    # code...
+               
+                ?>
                         <div class="comment__content">
 
                             <div class="comment__info">
-                                <div class="comment__author">Itachi Uchiha</div>
+                                <div class="comment__author"><?php echo $data['name'] ?></div>
 
                                 <div class="comment__meta">
-                                    <div class="comment__time">Jun 15, 2018</div>
+                                    <div class="comment__time"><?php echo $data['created_at'] ?></div>
 
                                 </div>
                             </div>
-
+                
                             <div class="comment__text">
-                                <p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani ponderum vulputate,
-                                    facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has voluptua praesent.</p>
-                            </div>
+                                <p> <?php echo $data['message'] ?> </p>
 
                         </div>
-
+                        <?php   } ?>
                     </li> <!-- end comment level 1 -->
 
 
@@ -190,7 +233,7 @@ include_once "includes/header.php";
 
                 <h3 class="h2">Add Comment <span>Your email address will not be published</span></h3>
 
-                <form name="contactForm" id="contactForm" method="post" action="" autocomplete="off">
+                <form name="contactForm" id="contactForm" autocomplete="off">
                     <fieldset>
 
                         <div class="form-field">
@@ -228,3 +271,31 @@ include_once "includes/header.php";
 include_once "includes/footer.php";
 
 ?>
+<script>
+
+let contactForm = document.getElementById("contactForm");
+contactForm.addEventListener("submit",(e) => {
+    e.preventDefault();
+    
+let cName = document.getElementById("cName").value;
+let cEmail = document.getElementById("cEmail").value;
+let cWebsite = document.getElementById("cWebsite").value;
+let cMessage = document.getElementById("cMessage").value;  
+let post_id = "<?php echo $where ?>";
+const phpaddress ="sendcomment.php";
+let message = "We have received your comment";
+let myob = {
+    "name":cName,
+    "email":cEmail,
+    "website":cWebsite,
+    "message":cMessage,
+    "post_id":post_id
+}
+let fetcData = new Fetch;
+fetcData.setFetch(myob,phpaddress,message);
+
+
+
+})
+
+</script>

@@ -25,7 +25,7 @@ function my_autoloader($class){
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/main.css">
-
+    <link href="back/css/toastr.css" rel="stylesheet">
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
@@ -87,19 +87,14 @@ function my_autoloader($class){
                     <ul class="sub-menu">
                         <?php 
                         $sql = new Model;
-                        $conditions = [
-                            "leftjoin" =>"posts",
-                            "from"=>"id",
-                            "to"=>"category"
-                        ];
-                        $sql->getData("category");
+                        
+                        $data =$sql->getData("category");
+                        foreach ($data as $data) {
+                            # code...
+                       
                         ?>
-                        <li><a href="category.php">Lifestyle</a></li>
-                        <li><a href="category.php">Health</a></li>
-                        <li><a href="category.php">Family</a></li>
-                        <li><a href="category.php">Management</a></li>
-                        <li><a href="category.php">Travel</a></li>
-                        <li><a href="category.php">Work</a></li>
+                        <li><a href="category.php?category=<?php echo $data['id'] ?>"><?php echo $data['category'] ?></a></li>
+                       <?php  } ?>
                     </ul>
                 </li>
                

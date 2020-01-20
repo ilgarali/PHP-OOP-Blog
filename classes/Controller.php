@@ -28,7 +28,7 @@ class Controller extends DB{
         $sql = "INSERT INTO " .$table. " ( ";
         $columns = implode(",",array_keys($data));
         $values = ":".implode(",:",array_keys($data));
-        
+
         $sql .= " ". $columns ." ) ";
         $sql .= " VALUES ( ".$values. " )" ;
 
@@ -37,11 +37,16 @@ class Controller extends DB{
         foreach ($data as $key => $value) {
             $stmt->bindValue(":".$key,$value);
         }
+       
        $result = $stmt->execute();
-       $res = ["res" => true];
-       echo json_encode($res);
-       return $result;
-        
+   
+       if ($result) {
+        $res = ["res" => true];
+        echo json_encode($res);
+        return $result;
+       }
+       
+
     }
 
     // UPDATE FUNCTION $table = which table you want to update,$data your data that comes from form,$where for example WHERE id = 1

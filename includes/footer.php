@@ -166,6 +166,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
+<script src="back/js/fetch.js"></script>
+<script src="back/js/toastr.js"></script>
 
 </body>
 

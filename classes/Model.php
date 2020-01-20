@@ -25,6 +25,7 @@ class Model extends DB
               $sql.=" ORDER BY ".$table.".".$conditions['orderby'] ." ". $conditions['orderedtype'];
               
           }
+         
     
           if (!array_key_exists("page",$conditions)) {
             $stmt =$this->db->prepare($sql);
@@ -62,11 +63,11 @@ class Model extends DB
             $stmt =$this->db->prepare($sql);
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-           
+            
             return $data;
           }
 
-        
+      
     }
  
 
