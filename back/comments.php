@@ -37,6 +37,12 @@
                 <tbody>
 
                     <?php
+
+if (!isset($_GET['page'])) {
+    $page = 1;
+  } else {
+    $page = $_GET['page'];
+  }
                     $sql = new Model();
                     $conditions = [
                         "select"=>"*,comments.status as sta,comments.id as com_id",
@@ -44,10 +50,15 @@
                         "from"=>"post_id",
                         "to"=>"id",
                         "orderby" => "id",
-                        "orderedtype" => "DESC"
+                        "orderedtype" => "DESC",
+                        "count" => true,
+                        "page" => $page,
+                        "limit" => 6,
                     ];
+                   
                     $data = $sql->getData("comments", $conditions);
-                    foreach ($data as $data) {
+                    $totalpage = $data[1];
+                    foreach ($data[0] as $data) {
                         # code...
 
                     ?>
@@ -83,6 +94,23 @@
         </div>
     </div>
    
+    <div class="row-">
+  <div class="col-md-12 text-center">
+  <ul style="list-style: none;">
+
+<?php
+
+
+for ($page = 1; $page <= $totalpage; $page++) {
+  echo '<li style="display:inline;margin:5px;"><a class="pgn__num" href="index.php?page=' . $page . '" >' . $page . '</a></li>';
+} ?>
+
+
+
+</ul>
+  </div>
+</div>
+
 
 
 </div>

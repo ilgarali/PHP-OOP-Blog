@@ -168,6 +168,72 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="js/main.js"></script>
 <script src="back/js/fetch.js"></script>
 <script src="back/js/toastr.js"></script>
+<script>
+let search = document.getElementById("search");
+search.addEventListener("submit",(e) => {
+    e.preventDefault();
+    let word = document.getElementById("word").value;
+
+    const search = "search.php";
+    let formData = new FormData;
+    formData.append("word",word);
+    fetch(search,{
+        method:"post",
+        body:formData
+    }).then((res) => res.json())
+    .then((res) => find(res))
+    .catch((error) =>  toastr.error("Nothing Found"))
+
+    function find(res) {
+        let entries = document.querySelectorAll('.entries');
+            for (let i = 0; i < entries.length; i++) {
+                entries[i].innerHTML ="";
+                
+            }
+            
+            toastr.success("We have Found something,Go below");
+
+        res.forEach(element => {
+            let d=0;
+            let title = element.title;
+            let id = element.id;
+            let img = element.img;
+            let created_at= element.created_at;
+             entries[d].innerHTML =`
+            <article class="col-block">
+        
+        <div class="item-entry" data-aos="zoom-in">
+            <div class="item-entry__thumb">
+                <a href="single.php?single=${id}" class="item-entry__thumb-link">
+                    <img src="back/img/${img}" 
+                           alt="">
+                </a>
+            </div>
+   
+            <div class="item-entry__text">    
+                <div class="item-entry__cat">
+                    <a href="category.html"></a> 
+                </div>
+
+                <h1 class="item-entry__title"><a href="single.php?single=${id}">${title}</a></h1>
+                    
+                <div class="item-entry__date">
+                    <a href="single.php?single=${id}">${created_at}</a>
+                </div>
+            </div>
+        </div> <!-- item-entry -->
+
+    </article> <!-- end article -->
+            
+            `
+            d++;
+        });
+      }
+
+    
+})
+
+</script>
 
 </body>
 

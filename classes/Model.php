@@ -6,6 +6,8 @@ class Model extends DB
         $sql = "SELECT ";
         $sql .=array_key_exists("select",$conditions)?$conditions['select']:'*';
         $sql .= " FROM " .$table;
+        
+
         if (array_key_exists("leftjoin",$conditions)) {
             $sql .= " LEFT JOIN " .$conditions['leftjoin'];
             $sql .= " on " . $table.".".$conditions['from'];
@@ -20,6 +22,8 @@ class Model extends DB
                 $sql .=$pre.$key . " = " . $value;
                 $i++;
             }
+            
+
         }
           if (array_key_exists("orderby",$conditions)) {
               $sql.=" ORDER BY ".$table.".".$conditions['orderby'] ." ". $conditions['orderedtype'];
@@ -68,6 +72,33 @@ class Model extends DB
           }
 
       
+    }
+
+    public function search($table,$conditions=[],$where=[]){
+      $sql = "SELECT ";
+      $sql .=array_key_exists("select",$conditions)?$conditions['select']:'*';
+      $sql .= " FROM " .$table;
+
+        if (count($where) > 0) {
+            $sql .=" WHERE ";
+            $i=0;
+            foreach ($where as $key => $value) {
+                $pre = ($i > 0)?" AND " : "";
+                $sql .=$pre.$key . " LIKE '%" . $value . "%' ";
+                $i++;
+            }
+            
+
+        }
+       
+        $stmt =$this->db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       if ($data) {
+         echo json_encode($data);
+       }
+       
+
     }
  
 
