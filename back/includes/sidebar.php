@@ -64,8 +64,18 @@ if (!isset($_SESSION['id'])) {
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Category</span></a>
       </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="comments.php">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Comments</span></a>
+      </li>
       <!-- Nav Item - Pages Collapse Menu -->
-     
+      <li class="nav-item active">
+        <a class="nav-link" href="conactmessage.php">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Conactmessage</span></a>
+      </li>
       <!-- Nav Item - Utilities Collapse Menu -->
      
       <!-- Divider -->

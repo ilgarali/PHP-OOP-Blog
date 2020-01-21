@@ -25,6 +25,19 @@ if (isset($_POST['id'])) {
 
   $insert->delete("category",["id"=>$id]);
 }
+if (isset($_POST['com_id'])) {
+  $insert = new Controller();
+  $id = $_POST['com_id']; 
+
+  $insert->update("comments",["status"=>1],["id"=>$id]);
+}
+
+if (isset($_POST['delcom'])) {
+  $insert = new Controller();
+  $id = $_POST['delcom']; 
+
+  $insert->delete("comments",["id"=>$id]);
+}
 
 
 

@@ -77,12 +77,15 @@ class Controller extends DB{
         
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute();
-
-        // if everything is fine that sends true response to fetch 
-        $res = ["res" => true];
+        if ($result) {
+           
+            $res = ["res" => true];
         echo json_encode($res);
-        
+     
         return $result;
+        }
+        // if everything is fine that sends true response to fetch 
+        
 
     }
 
