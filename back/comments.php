@@ -65,7 +65,7 @@ if (!isset($_GET['page'])) {
             <td id="<?php echo $data['com_id'] ?>"> <?php echo $data['name'] ?> </td>   
             <td > <?php echo $data['email'] ?> </td>
             <td>  <?php echo $data['message'] ?> </td>
-            <td><a href="single.php?single=<?php echo $data['post_id'] ?>"><?php echo $data['title'] ?></a></td>
+            <td><a href="../single.php?single=<?php echo $data['post_id'] ?>"><?php echo $data['title'] ?></a></td>
             <td> <?php   if ($data['sta'] == 0) {
                 echo "Passive";
             }else{

@@ -176,8 +176,9 @@ include_once "includes/header.php";
                 
 
                 $data = $sql3->getData("comments",$cond,["post_id" =>$where]);
+                $x=1;
                 ?>
-                <h3 class="h2">5 Comments</h3>
+                <h3 class="h2" id="number">Comments</h3>
 
                 <!-- START commentlist -->
                 <ol class="commentlist">
@@ -199,7 +200,7 @@ include_once "includes/header.php";
                     # code...
                
                 ?>
-                        <div class="comment__content">
+                        <div class="comment__content comments" >
 
                             <div class="comment__info">
                                 <div class="comment__author"><?php echo $data['name'] ?></div>
@@ -296,6 +297,11 @@ fetcData.setFetch(myob,phpaddress,message);
 
 
 
+
+
 })
+
+let comments = document.querySelectorAll('.comments');
+let number = document.getElementById('number').innerText=comments.length + " Comments";
 
 </script>
